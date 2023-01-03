@@ -4,6 +4,8 @@ import { execSync } from 'child_process';
 import * as path from 'path';
 import * as fs from 'fs';
 
+// TODO: Ask for the application name if none is provided, instead of
+// TODO: exiting.
 if (process.argv.length < 3) {
   console.log('Please provide a name for your repl application.');
   console.log('Ex: npx create-repl-app my-repl');
@@ -43,13 +45,13 @@ function main() {
     console.log('Updating package.json...');
     updatePackageJson();
 
-    console.log('Installing dependencies...');
-    execSync('npm install');
-
     console.log('Removing unnecessary files');
     execSync('npx rimraf ./.git');
     execSync('npx rimraf ./src/create-repl-app.ts')
-    
+
+    console.log('Installing dependencies...');
+    execSync('npm install');
+
     console.log(`${projectName} is ready.`);
 
   } catch (error) {
