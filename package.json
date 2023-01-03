@@ -1,14 +1,14 @@
 {
-  "name": "y",
+  "name": "create-repl-app",
   "version": "1.0.0",
   "description": "Creates a new REPL application using Replicant",
-  "main": "index.js",
   "bin": {
     "create-repl-app": "./build/src/create-repl-app.js"
   },
   "files": [
     "build/src"
   ],
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "gts lint",
@@ -25,8 +25,11 @@
   "author": "Impleta",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^14.11.2",
     "gts": "^3.1.1",
-    "typescript": "~4.7.0",
-    "@types/node": "^14.11.2"
+    "typescript": "~4.7.0"
+  },
+  "dependencies": {
+    "replicant": "file:../Replicant"
   }
 }

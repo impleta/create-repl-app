@@ -2,7 +2,15 @@
   "extends": "./node_modules/gts/tsconfig-google.json",
   "compilerOptions": {
     "rootDir": ".",
-    "outDir": "build"
+    "outDir": "build",
+    "baseUrl": ".",
+    "paths": {
+      "replicant": [
+        "node_modules/replicant/build/src/replicant.d.ts"
+        ]
+    },
+    "module": "ES2020",
+    "moduleResolution": "node",
   },
   "include": [
     "src/**/*.ts",

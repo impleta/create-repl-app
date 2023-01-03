@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 import { execSync } from 'child_process';
-import path = require('path');
-import fs = require('fs');
+import * as path from 'path';
+import * as fs from 'fs';
 
 if (process.argv.length < 3) {
   console.log('Please provide a name for your repl application.');
@@ -13,7 +13,7 @@ if (process.argv.length < 3) {
 const projectName = process.argv[2];
 const currentPath = process.cwd();
 const projectPath = path.join(currentPath, projectName);
-const git_repo = 'https://github.com/impleta/Replicant';
+const git_repo = 'https://github.com/impleta/create-repl-app';
 
 fs.mkdir(projectPath, err => {
   if (err) {
