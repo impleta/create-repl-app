@@ -28,7 +28,8 @@ async function updatePackageJson() {
   packageJson.name = projectName;
   packageJson.private = true;
   const bin = packageJson.bin;
-  delete Object.assign(bin, {[projectName.toLowerCase()]: bin['replicant'] })['replicant'];
+  delete bin['create-repl-app'];
+  bin[projectName] = "build/src/index.js"
   fs.writeFileSync(path.join(projectPath, 'package.json'), JSON.stringify(packageJson, null, 2));
 }
 
