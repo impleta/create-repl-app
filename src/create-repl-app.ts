@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { AppCreator } from './AppCreator';
+import { AppCreator } from './AppCreator.js';
 
 try {
   AppCreator.start();
