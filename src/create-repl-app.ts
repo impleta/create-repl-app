@@ -1,62 +1,9 @@
 #!/usr/bin/env node
 
-import { execSync } from 'child_process';
-import * as path from 'path';
-import * as fs from 'fs';
+import { AppCreator } from './AppCreator';
 
-// TODO: Ask for the application name if none is provided, instead of
-// TODO: exiting.
-if (process.argv.length < 3) {
-  console.log('Please provide a name for your repl application.');
-  console.log('Ex: npx create-repl-app my-repl');
-  process.exit(1);
+try {
+  AppCreator.start();
+} catch (error) {
+  console.log(error)
 }
-
-const projectName = process.argv[2];
-const currentPath = process.cwd();
-const projectPath = path.join(currentPath, projectName);
-const git_repo = 'https://github.com/impleta/create-repl-app';
-
-fs.mkdir(projectPath, err => {
-  if (err) {
-    console.log(`Error creating folder ${projectPath}: ${err}`)
-    process.exit(1);
-  }
-})
-
-async function updatePackageJson() {
-  const packageJsonPath = path.join(projectPath, 'package.json');
-  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
-  packageJson.name = projectName;
-  packageJson.private = true;
-  const bin = packageJson.bin;
-  delete bin['create-repl-app'];
-  bin[projectName] = "build/src/index.js"
-  fs.writeFileSync(path.join(projectPath, 'package.json'), JSON.stringify(packageJson, null, 2));
-}
-
-function main() {
-  try {
-    console.log('Downloading files...');
-    execSync(`git clone --depth 1 ${git_repo} ${projectPath}`);
-
-    process.chdir(projectPath);
-
-    console.log('Updating package.json...');
-    updatePackageJson();
-
-    console.log('Removing unnecessary files');
-    execSync('npx rimraf ./.git');
-    execSync('npx rimraf ./src/create-repl-app.ts')
-
-    console.log('Installing dependencies...');
-    execSync('npm install');
-
-    console.log(`${projectName} is ready.`);
-
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-main();
