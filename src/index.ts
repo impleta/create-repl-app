@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { Replicant } from "replicant";
+import { ReplApp } from "./ReplApp";
 
-Replicant.start();
+ReplApp.start();
 
 export {};
