@@ -1,6 +1,6 @@
 {
   "name": "create-repl-app",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Creates a new REPL application",
   "bin": {
     "create-repl-app": "./build/src/create-repl-app.js"

@@ -20,7 +20,7 @@ export class ReplApp {
  
     const currentFile = await createRequire(import.meta.url).resolve('.');
     const startPath = Path.dirname(currentFile);
-    const configFileName = 'ReplApp.config.js';
+    const configFileName = 'ReplApp.init.js';
     const configFile = await this.findFile(configFileName, startPath);
 
     let replicantContext = {};

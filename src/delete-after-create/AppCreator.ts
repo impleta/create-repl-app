@@ -34,8 +34,7 @@ export class AppCreator {
   static removeUnnecessaryFiles() {
     console.log('Removing unnecessary files');
 
-    execSync('npx rimraf ./.git ./src/create-repl-app.ts ./src/AppCreator.ts');
-    //execSync('npx rimraf ./src/create-repl-app.ts');
+    execSync('npx rimraf ./.git ./src/delete-after-create');
   }
 
   static createAppFolder(projectPath: string, errorHandler: (err: NodeJS.ErrnoException) => void) {
