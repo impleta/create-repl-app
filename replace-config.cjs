@@ -1,6 +1,6 @@
 module.exports = {
   files: [
-    './build/src/ReplApp.config.js', 
+    './build/src/ReplApp.init.js', 
     './build/src/index.js'
   ],
   "from": /import (.*) from "(\.\/.*)";/g,
