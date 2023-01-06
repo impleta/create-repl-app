@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Creates a new REPL application",
   "bin": {
-    "create-repl-app": "./build/src/create-repl-app.js"
+    "create-repl-app": "./build/src/delete-after-create/create-repl-app.js"
   },
   "files": [
     "build/src"
