@@ -17,10 +17,11 @@ export class AppCreator {
     AppCreator.createAppFolder(projectPath, err => { return err; });
 
     console.log('Downloading files...');
-    execSync(`git clone --depth 1 ${git_repo} ${projectPath}`);
+    execSync(`git clone --depth 1 --filter=blob:none --sparse ${git_repo} ${projectPath}`);
 
     process.chdir(projectPath);
-
+    execSync(`git sparse-checkout set app-template`)
+    
     AppCreator.updatePackageJson(projectName, projectPath);
 
     AppCreator.removeUnnecessaryFiles();

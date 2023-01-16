@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { ReplApp } from "./ReplApp";
+import { ReplApp } from "@impleta/repl-app";
 
 ReplApp.start();
 

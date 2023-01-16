@@ -1,12 +1,12 @@
 # create-repl-app
 
-Creates a new Node-based REPL application, and optionally executes an initialization script.
+Creates a new Node-based REPL application, based on @impleta/repl-app.
 
 ### Usage
 npx create-repl-app my-repl-name
 
 This will create a folder named `my-repl-name`
-
+cd `my-repl-name`
 run npm link `my-repl-name`
 
 This will create a globally accessible executable named `my-repl-name`.
