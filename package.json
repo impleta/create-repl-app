@@ -1,6 +1,6 @@
 {
-  "name": "create-repl-app",
-  "version": "0.1.0",
+  "name": "@impleta/create-repl-app",
+  "version": "0.1.1",
   "description": "Creates a new REPL application",
   "bin": {
     "create-repl-app": "./build/src/create-repl-app.js"
@@ -18,9 +18,9 @@
     "dev": "tsc-watch --onSuccess \"npm run add-js-extension\"",
     "add-js-extension": "npx replace-in-file --configFile=replace-config.cjs --quiet",
     "fix": "gts fix",
-    "prepare": "npm.cmd run compile",
-    "pretest": "npm.cmd run compile",
-    "posttest": "npm.cmd run lint"
+    "prepare": "npm run compile",
+    "pretest": "npm run compile",
+    "posttest": "npm run lint"
   },
   "keywords": [
     "REPL"
