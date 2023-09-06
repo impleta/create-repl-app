@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "description": "Creates a new REPL application",
   "bin": {
-    "create-repl-app": "./build/src/delete-after-create/create-repl-app.js"
+    "create-repl-app": "./build/src/create-repl-app.js"
   },
   "files": [
     "build/src"
   ],
+  "preferGlobal": true,
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -34,6 +35,7 @@
     "typescript": "~4.7.0"
   },
   "dependencies": {
-    "find-up": "^6.3.0"
+    "find-up": "^6.3.0",
+    "rimraf": "^4.1.1"
   }
 }

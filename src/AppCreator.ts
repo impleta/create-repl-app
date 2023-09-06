@@ -12,17 +12,18 @@ export class AppCreator {
     const projectName = process.argv[2];
     const currentPath = process.cwd();
     const projectPath = path.join(currentPath, projectName);
-    const git_repo = 'https://github.com/impleta/create-repl-app';
+    const git_repo = 'https://github.com/impleta/repl-app-template';
 
-    AppCreator.createAppFolder(projectPath, err => { return err; });
+    if (!AppCreator.createAppFolder(projectPath)) {
+      return;
+    }
 
     console.log('Downloading files...');
-    execSync(`git clone --depth 1 --filter=blob:none --sparse ${git_repo} ${projectPath}`);
+    execSync(`git clone --depth 1 ${git_repo} ${projectPath}`);
 
     process.chdir(projectPath);
-    execSync(`git sparse-checkout set app-template`)
-    
-    AppCreator.updatePackageJson(projectName, projectPath);
+
+    AppCreator.updateFiles(projectName, projectPath);
 
     AppCreator.removeUnnecessaryFiles();
 
@@ -31,22 +32,39 @@ export class AppCreator {
 
     console.log(`${projectName} is ready.`);
   }
+  
+  static updateFiles(projectName: string, projectPath: string) {
+    AppCreator.updateReadme(projectName, projectPath);
+    AppCreator.updatePackageJson(projectName, projectPath);
+  }
+
+  static updateReadme(projectName: string, projectPath: string) {
+    const readmePath = path.join(projectPath, 'readme.md');
+    fs.writeFileSync(readmePath, `${projectName} REPL application.`);
+  }
 
   static removeUnnecessaryFiles() {
     console.log('Removing unnecessary files');
 
-    execSync('npx rimraf ./.git ./src/delete-after-create');
+    execSync('npx rimraf ./.git');
   }
 
-  static createAppFolder(projectPath: string, errorHandler: (err: NodeJS.ErrnoException) => void) {
-    fs.mkdir(projectPath, err => {
-      if (err) {
-        console.log(`Error creating folder ${projectPath}: ${err}`);
-        errorHandler(err);
-      }
-    });
+  static createAppFolder(projectPath: string) {
+    if (fs.existsSync(projectPath)) {
+      console.log(`Folder ${projectPath} already exists.`);
+      return false;
+    }
 
+    try {
+      fs.mkdirSync(projectPath);
+    } catch(err) {
+      console.log(`Error creating folder ${projectPath}: ${err}`);
+      return false;
+    }
+
+    return true;
   }
+
   static checkArgs() {
     // TODO: Ask for the application name if none is provided, instead of
     // TODO: exiting.
@@ -65,12 +83,14 @@ export class AppCreator {
     const packageJsonPath = path.join(projectPath, 'package.json');
     const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 
+    const templateAppName = '{{app_name}}';
     packageJson.name = projectName;
-    packageJson.private = true;
-
+    packageJson.main = packageJson.main.replace(templateAppName, projectName);
+    
     const bin = packageJson.bin;
-    delete bin['create-repl-app'];
-    bin[projectName] = "build/src/index.js";
+
+    bin[projectName] = bin[templateAppName].replace(templateAppName, projectName);
+    delete bin[templateAppName];
 
     fs.writeFileSync(path.join(projectPath, 'package.json'), JSON.stringify(packageJson, null, 2));
   }
